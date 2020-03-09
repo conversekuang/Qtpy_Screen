@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1035, 932)
+        # Form.resize(800, 440)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -21,15 +21,16 @@ class Ui_Form(object):
         Form.setSizePolicy(sizePolicy)
 
         self.textBrowser = QtWidgets.QTextBrowser(Form)
-        self.textBrowser.setGeometry(QtCore.QRect(0, 0, 800, 40))
+        self.textBrowser.setGeometry(QtCore.QRect(2, 0, 800, 40))
         self.textBrowser.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.textBrowser.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.textBrowser.setLineWidth(1)
+        self.textBrowser.setLineWidth(0)
         self.textBrowser.setObjectName("textBrowser")
+        # self.textBrowser.setStyleSheet("QTextBrowser{border-width:0;border-style:outset}")
 
         self.tableWidget = QtWidgets.QTableWidget(Form)
         self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 40, 800, 400))
+        self.tableWidget.setGeometry(QtCore.QRect(2, 40, 800, 400))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -47,7 +48,8 @@ class Ui_Form(object):
         self.tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.tableWidget.setAutoScroll(True)
         self.tableWidget.setProperty("showDropIndicator", False)
-        self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
+        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)    # 单元格不可编辑
+        # self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
         self.tableWidget.setShowGrid(True)
         self.tableWidget.setGridStyle(QtCore.Qt.SolidLine)
         self.tableWidget.setWordWrap(True)
@@ -56,11 +58,12 @@ class Ui_Form(object):
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(9)
 
+        # 设置全局数据
         rows_number = 8
         columns_number = 9
         header_columns = ["线路", "终点站", "发车时间"]
 
-        # 设置每行
+        # 设置每行的头
         for row_order in range(rows_number):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidget.setVerticalHeaderItem(row_order, item)
@@ -72,7 +75,7 @@ class Ui_Form(object):
         # item = QtWidgets.QTableWidgetItem()
         # self.tableWidget.setVerticalHeaderItem(2, item)
 
-        # 设置表头
+        # 设置每一列的表头
         for head_order in range(columns_number):
             if head_order % 3 == 0:
                 headname = header_columns[0]
@@ -81,23 +84,28 @@ class Ui_Form(object):
             else:
                 headname = header_columns[2]
 
-            item = QtWidgets.QTableWidgetItem()
-            item.setText(headname)
+
+            item = QtWidgets.QTableWidgetItem(headname)
+            print(head_order, type(item))
+
+            # 设置名称
+
+
             # 表头字体
             font = QtGui.QFont()
             font.setPointSize(11)
             font.setBold(True)
             font.setWeight(75)
             item.setFont(font)
+
             # 设置颜色
+            brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+            brush.setStyle(QtCore.Qt.SolidPattern)
+            item.setBackground(brush)
 
             brush = QtGui.QBrush(QtGui.QColor(255, 0, 0))
             brush.setStyle(QtCore.Qt.SolidPattern)
             item.setForeground(brush)
-
-            brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            item.setBackground(brush)
 
             self.tableWidget.setHorizontalHeaderItem(head_order, item)
 
@@ -139,18 +147,19 @@ class Ui_Form(object):
         for row in range(rows_number):
             for col in range(columns_number):
                 item = QtWidgets.QTableWidgetItem()
-                item.setTextAlignment(QtCore.Qt.AlignCenter)  # 字体居中
+                item.setTextAlignment(QtCore.Qt.AlignCenter)   # 字体居中
                 font = QtGui.QFont()
                 font.setPointSize(11)  # 字体大小
-                font.setBold(True)  # 加粗
+                font.setBold(True)     # 加粗
                 font.setWeight(75)
                 item.setFont(font)
-                brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))  # 设置单元格的背景颜色
+                brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))    # 设置单元格的背景颜色
                 brush.setStyle(QtCore.Qt.SolidPattern)
                 item.setBackground(brush)
                 brush = QtGui.QBrush(QtGui.QColor(0, 170, 0))  # 设置单元格字体颜色
                 brush.setStyle(QtCore.Qt.SolidPattern)
                 item.setForeground(brush)
+                item.setFlags(QtCore.Qt.NoItemFlags)           # 不可选中单元格
                 self.tableWidget.setItem(row, col, item)
 
                 # item = QtWidgets.QTableWidgetItem()
@@ -173,18 +182,22 @@ class Ui_Form(object):
 
         # 设置表头属性
         self.tableWidget.horizontalHeader().setVisible(True)
-        self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(87)
+        # self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(89)
         self.tableWidget.horizontalHeader().setHighlightSections(True)
-        self.tableWidget.horizontalHeader().setMinimumSectionSize(80)
-        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.horizontalHeader().setMinimumSectionSize(89)
+        self.tableWidget.horizontalHeader().setStretchLastSection(False)
+        self.tableWidget.horizontalHeader().setStyleSheet(
+            "QHeaderView::section {background-color: #000;color:red; border:1px solid white;margin: 0 0 0 -1px;}")
+        # border-left:1px solid #000;"
+        #             "border-right:1px solid white;border-top:1px solid #000;border-bottom:1px solid #000;
+
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.verticalHeader().setCascadingSectionResizes(True)
         self.tableWidget.verticalHeader().setDefaultSectionSize(46)
         self.tableWidget.verticalHeader().setMinimumSectionSize(10)
         self.tableWidget.verticalHeader().setSortIndicatorShown(False)
         self.tableWidget.verticalHeader().setStretchLastSection(True)
-
 
         # 重新填写数据
         self.retranslateUi(Form)
@@ -196,9 +209,8 @@ class Ui_Form(object):
         self.textBrowser.setHtml(_translate("Form",
                                             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
                                             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                            "p, li { white-space: pre-wrap; }\n"
-                                            "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-                                            "<p align=\"center\" dir=\'rtl\' style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#000000;\"><span style=\" font-size:20pt; font-weight:600; color:#e60000;\">火车站</span></p></body></html>"))
+                                            "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;background-color:#000000;border-top:1px solid white;\">\n"
+                                            "<p align=\"center\" dir=\'rtl\' style=\" margin:0 0 0 0 ; -qt-block-indent:0; text-indent:0px; \"><span style=\" font-size:20pt; font-weight:600; color:#e60000;border:1px solid white;\">火车站</span></p></body></html>"))
         self.tableWidget.setSortingEnabled(False)
 
         # tableWidget.verticalHeaderItem 表头行名 row
