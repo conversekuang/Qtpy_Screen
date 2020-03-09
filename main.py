@@ -60,7 +60,7 @@ if __name__ == '__main__':
     update_data_thread.start()
 
     # resize()方法调整窗口的大小。这离是800px宽440px高
-    myWin.resize(804, 440)
+    myWin.resize(804, 450)
 
     # move()方法移动窗口在屏幕上的位置到x = 0，y = 0坐标。
     myWin.move(20, 20)

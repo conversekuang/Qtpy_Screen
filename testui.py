@@ -21,7 +21,7 @@ class Ui_Form(object):
         Form.setSizePolicy(sizePolicy)
 
         self.textBrowser = QtWidgets.QTextBrowser(Form)
-        self.textBrowser.setGeometry(QtCore.QRect(2, 0, 800, 40))
+        self.textBrowser.setGeometry(QtCore.QRect(2, 0, 800, 50))
         self.textBrowser.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.textBrowser.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textBrowser.setLineWidth(0)
@@ -30,7 +30,7 @@ class Ui_Form(object):
 
         self.tableWidget = QtWidgets.QTableWidget(Form)
         self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(2, 40, 800, 400))
+        self.tableWidget.setGeometry(QtCore.QRect(2, 50, 800, 400))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -48,7 +48,7 @@ class Ui_Form(object):
         self.tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.tableWidget.setAutoScroll(True)
         self.tableWidget.setProperty("showDropIndicator", False)
-        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)    # 单元格不可编辑
+        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # 单元格不可编辑
         # self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
         self.tableWidget.setShowGrid(True)
         self.tableWidget.setGridStyle(QtCore.Qt.SolidLine)
@@ -84,12 +84,10 @@ class Ui_Form(object):
             else:
                 headname = header_columns[2]
 
-
             item = QtWidgets.QTableWidgetItem(headname)
             print(head_order, type(item))
 
             # 设置名称
-
 
             # 表头字体
             font = QtGui.QFont()
@@ -147,19 +145,19 @@ class Ui_Form(object):
         for row in range(rows_number):
             for col in range(columns_number):
                 item = QtWidgets.QTableWidgetItem()
-                item.setTextAlignment(QtCore.Qt.AlignCenter)   # 字体居中
+                item.setTextAlignment(QtCore.Qt.AlignCenter)  # 字体居中
                 font = QtGui.QFont()
                 font.setPointSize(11)  # 字体大小
-                font.setBold(True)     # 加粗
+                font.setBold(True)  # 加粗
                 font.setWeight(75)
                 item.setFont(font)
-                brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))    # 设置单元格的背景颜色
+                brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))  # 设置单元格的背景颜色
                 brush.setStyle(QtCore.Qt.SolidPattern)
                 item.setBackground(brush)
                 brush = QtGui.QBrush(QtGui.QColor(0, 170, 0))  # 设置单元格字体颜色
                 brush.setStyle(QtCore.Qt.SolidPattern)
                 item.setForeground(brush)
-                item.setFlags(QtCore.Qt.NoItemFlags)           # 不可选中单元格
+                item.setFlags(QtCore.Qt.NoItemFlags)  # 不可选中单元格
                 self.tableWidget.setItem(row, col, item)
 
                 # item = QtWidgets.QTableWidgetItem()
@@ -209,7 +207,7 @@ class Ui_Form(object):
         self.textBrowser.setHtml(_translate("Form",
                                             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
                                             "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                            "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;background-color:#000000;border-top:1px solid white;\">\n"
+                                            "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;background-color:#000000;border-top:1px solid white;\">"
                                             "<p align=\"center\" dir=\'rtl\' style=\" margin:0 0 0 0 ; -qt-block-indent:0; text-indent:0px; \"><span style=\" font-size:20pt; font-weight:600; color:#e60000;border:1px solid white;\">火车站</span></p></body></html>"))
         self.tableWidget.setSortingEnabled(False)
 
