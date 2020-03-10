@@ -147,7 +147,7 @@ class Ui_Form(object):
                 item = QtWidgets.QTableWidgetItem()
                 item.setTextAlignment(QtCore.Qt.AlignCenter)  # 字体居中
                 font = QtGui.QFont()
-                font.setPointSize(11)  # 字体大小
+                font.setPointSize(10)  # 字体大小
                 font.setBold(True)  # 加粗
                 font.setWeight(75)
                 item.setFont(font)
@@ -181,18 +181,28 @@ class Ui_Form(object):
         # 设置表头属性
         self.tableWidget.horizontalHeader().setVisible(True)
         # self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(89)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(20)
         self.tableWidget.horizontalHeader().setHighlightSections(True)
-        self.tableWidget.horizontalHeader().setMinimumSectionSize(89)
-        self.tableWidget.horizontalHeader().setStretchLastSection(False)
+        self.tableWidget.horizontalHeader().setMinimumSectionSize(25)
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tableWidget.horizontalHeader().setStyleSheet(
             "QHeaderView::section {background-color: #000;color:red; border:1px solid white;margin: 0 0 0 -1px;}")
         # border-left:1px solid #000;"
         #             "border-right:1px solid white;border-top:1px solid #000;border-bottom:1px solid #000;
 
+        # self.tableWidget.resizeColumnToContents(1)  # 表格适应内容指定列
+
+        # self.tableWidget.horizontalHeader().setSectionResizeMode(True)  # 列宽自动分配
+        # self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)        # 随内容分配列宽
+        # 1.判断项是否设置了sizeHint，如果没有设置则按项的内容计算列宽，确保所有项的内容在一行上完整展示
+        # 2.如果项设置了sizeHint，则取sizeHint的宽和水平表头horizontalHeader().minimumSectionSize()两者之间最大值作为项的列宽
+        for number in range(columns_number):
+            self.tableWidget.horizontalHeader().setSectionResizeMode(number, QtWidgets.QHeaderView.ResizeToContents)
+
         self.tableWidget.verticalHeader().setVisible(False)
-        self.tableWidget.verticalHeader().setCascadingSectionResizes(True)
-        self.tableWidget.verticalHeader().setDefaultSectionSize(46)
+        self.tableWidget.verticalHeader().setSectionResizeMode(True)      # 列宽自动分配
+        # self.tableWidget.verticalHeader().setCascadingSectionResizes(True)
+        self.tableWidget.verticalHeader().setDefaultSectionSize(26)
         self.tableWidget.verticalHeader().setMinimumSectionSize(10)
         self.tableWidget.verticalHeader().setSortIndicatorShown(False)
         self.tableWidget.verticalHeader().setStretchLastSection(True)

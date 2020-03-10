@@ -16,13 +16,15 @@ from PyQt5.QtCore import *
 import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 import json
+import random
+import time
 
 
 class MyWindow(QTableWidget, Ui_Form):
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowFlags(Qt.FramelessWindowHint)     # 将窗体隐藏
+        self.setWindowFlags(Qt.FramelessWindowHint)  # 将窗体隐藏
 
     def update_item_data(self, data):
         """更新内容"""
@@ -45,8 +47,14 @@ class UpdateData(QThread):
         cnt = 0
         while True:
             cnt += 1
-            self.update_date.emit({"0,1": "嘉兴花园", "2,2": ""})  # 发射信号
-            self.sleep(10)
+            x = random.randint(0, 7)
+            y = int(random.randint(0, 2))*3
+            print(x, y)
+            self.update_date.emit({
+                str(x) + "," + str(y): "辅79", str(x) + "," + str(y + 1): "嘉兴花园-领秀智谷牙博士",
+                str(x) + "," + str(y + 2): time.strftime('%H:%M:%S', time.localtime(time.time())),
+            })  # 发射信号
+            self.sleep(1)
 
 
 if __name__ == '__main__':

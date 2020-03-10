@@ -32,14 +32,6 @@ Py designer的使用流程
 
 
 
-
-
-表格布局
-
- https://blog.csdn.net/yl_best/article/details/84070231 
-
-
-
 Pyqt的介绍
 
  https://fishc.com.cn/forum.php?mod=viewthread&tid=59816&extra=page%3D1&page=1 
@@ -54,15 +46,52 @@ signal的用法
 
 
 
+表格头的设置
+
+ https://blog.csdn.net/LaoYuanPython/article/details/103656856 
+
+
+
+表格布局
+
+ https://blog.csdn.net/yl_best/article/details/84070231 
+
+
+
 tableview
 
  https://blog.csdn.net/qq_26093511/article/details/82861767 
 
 
 
-表格头的设置
+PyQt（Python+Qt）学习随笔：QHeaderView.ResizeMode取值及含义
 
- https://blog.csdn.net/LaoYuanPython/article/details/103656856 
+ https://blog.csdn.net/LaoYuanPython/article/details/104599978 
+
+
+
+PyQt（Python+Qt）学习随笔：QTableWidget表格部件中行高和列宽的计算方式
+
+ https://blog.csdn.net/LaoYuanPython/article/details/104600195 
+
+
+
+Pyqt5之QTableWidget设置列宽行高大小的几种方式
+
+ https://www.jianshu.com/p/ad125c7b2f8e 
+
+```python
+self.tableWidget.horizontalHeader().setSectionResizeMode(True)  
+# 列宽自动分配
+```
+
+
+
+
+
+ 老猿Python 这个博主的PyQt文章比较多
+
+ https://me.csdn.net/LaoYuanPython 
 
 
 
@@ -71,3 +100,10 @@ tableview
 C++中的Qt包就是
 
 python中的QtCore.Qt包
+
+
+
+```python
+from PyQt5.QtWidgets import QTableView, QHeaderView, QFormLayout,   QVBoxLayout,QWidget,QApplication ,QHBoxLayout, QPushButton,QMainWindow,QGridLayout,QLabel
+```
+
