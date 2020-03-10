@@ -48,19 +48,35 @@ class UpdateData(QThread):
         while True:
             cnt += 1
             x = random.randint(0, 7)
-            y = int(random.randint(0, 2))*3
+            y = int(random.randint(0, 2)) * 3
             print(x, y)
-            self.update_date.emit({
-                str(x) + "," + str(y): "辅79", str(x) + "," + str(y + 1): "嘉兴花园-领秀智谷牙博士",
-                str(x) + "," + str(y + 2): time.strftime('%H:%M:%S', time.localtime(time.time())),
-            })  # 发射信号
+            # 更新数据要进行全屏幕的单元格更新，才可以起到刷屏的作用
+            sent_data = {}
+            for row in range(8):
+                for col in (0, 3, 6):
+                    if row == x and col == y:
+                        sent_data.update({
+                            str(x) + "," + str(y): "辅79",
+                            str(x) + "," + str(y + 1): "嘉兴花园-领秀智谷牙博士",
+                            str(x) + "," + str(y + 2): time.strftime('%H:%M:%S', time.localtime(time.time())),
+                        })
+                    else:
+                        sent_data.update({
+                            str(row) + "," + str(col): "",
+                            str(row) + "," + str(col + 1): "",
+                            str(row) + "," + str(col + 2): "",
+                        })
+            print("----{}".format(sent_data))
+            # 刷屏
+            self.update_date.emit(sent_data)  # 发射信号
             self.sleep(1)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     myWin = MyWindow()
-    # TODO 自适应的单元格，以及需要单元格自动调节大小。
+    # TODO 自适应的单元格，以及需要单元格自动调节大小。(67099395f34436152cf8127849f commit finished)
+    # TODO 自己设定单元格的宽度。下一步需要做的
 
     # 启动更新线程
     update_data_thread = UpdateData()
